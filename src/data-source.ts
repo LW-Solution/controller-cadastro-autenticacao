@@ -1,6 +1,8 @@
 import "reflect-metadata"
 import { DataSource } from "typeorm"
 import dotenv from 'dotenv';
+import { User } from "./entity/User";
+import { Permission } from "./entity/Permission";
 
 dotenv.config();
 
@@ -13,9 +15,7 @@ export const AppDataSource = new DataSource({
     database: process.env.POSTGRES_DB,
     synchronize: true, // This will create the tables if they do not exist ONLY IN DEVELOPMENT
     logging: false,
-    entities: [
-        "src/entity/*.ts"
-      ],
+    entities: [User, Permission],
     migrations: ["src/migration/*.ts"],
     subscribers: [],
 })

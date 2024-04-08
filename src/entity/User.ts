@@ -1,18 +1,19 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable } from "typeorm";
+import { Permission } from "./Permission";
 
 @Entity()
 export class User {
 
     @PrimaryGeneratedColumn()
-    id: number
+    id: number;
 
-    @Column()
-    firstName: string
+    @Column({length: 100})
+    user_name: string;
 
-    @Column()
-    lastName: string
+    @Column({length: 225})
+    password: string;
 
-    @Column()
-    age: number
-
+    @ManyToMany(() => Permission)
+    @JoinTable()
+    permissions: Permission[];
 }

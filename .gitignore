@@ -1,4 +1,6 @@
-package-lock.json/
+.idea/
+.vscode/
 node_modules/
-.env
-out/
+build/
+tmp/
+temp/

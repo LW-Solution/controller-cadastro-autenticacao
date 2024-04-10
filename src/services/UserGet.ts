@@ -1,7 +1,7 @@
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
 
-class GetUser {
+class UserGet {
     async getAll(){
         const users = await AppDataSource.manager.find(User);
         return users;
@@ -17,4 +17,4 @@ class GetUser {
     }
 }
 
-export default new GetUser;
+export default new UserGet;

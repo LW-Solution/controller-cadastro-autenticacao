@@ -8,6 +8,9 @@ class ControllerUser {
     async create(request: Request, response: Response) {
         try {
             const data = request.body;
+            if (data.permissionsId && Array.isArray(data.permissionsId)) {
+                data.permissionsId = data.permissionsId.map(Number);
+            }
             const user = UserCreate.create(data);
             return response.status(201).json(user);
         } catch (error) {
@@ -38,7 +41,7 @@ class ControllerUser {
         try {
             const { id } = request.params;
             const data = request.body;
-            const user = await UserUpdate.update(data);
+            const user = await UserUpdate.update(data, Number(id));
             return response.status(200).json(user);
         } catch (error) {
             return response.status(400).json({ error: error });
@@ -50,8 +53,8 @@ class ControllerUser {
             const { id } = request.params;
             const user = await UserDelete.delete(Number(id));
             return response.status(200).json(user);
-        } catch (error) {
-            return response.status(400).json({ error: error });
+        } catch (error: any) {
+            return response.status(400).json({ error: error.message });
         }
     }
 }

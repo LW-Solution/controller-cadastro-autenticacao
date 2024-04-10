@@ -9,7 +9,7 @@ class UserGet {
 
     async getById(id: number){
         const UserRepositorio = AppDataSource.getRepository(User);
-        const user = await UserRepositorio.findOneBy({ id: id, });
+        const user = await UserRepositorio.findOne({ relations: ["permissions"], where: {id: id, }});
         if (!user) {
             throw new Error("User not found");
         }

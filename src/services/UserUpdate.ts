@@ -12,10 +12,10 @@ type data = {
 }
 
 class UserUpdate {
-    async update(data: data) {
+    async update(data: data, id: number) {
         try {
             const UserRepositorio = AppDataSource.getRepository(User);
-            const user = await UserRepositorio.findOneBy({ id: data.id, });
+            const user = await UserRepositorio.findOneBy({ id: id, });
             if (!user) {
                 throw new Error("User not found");
             }
@@ -23,12 +23,12 @@ class UserUpdate {
             user.email = data.email;
             user.password = data.password;
             const PermissionRepositorio = AppDataSource.getRepository(Permission);
-            const permissions = await PermissionRepositorio.findBy({ id: In([data.permissionsId]),});
+            const permissions = await PermissionRepositorio.findBy({ id: In(data.permissionsId),});
             user.permissions = permissions;
             await UserRepositorio.save(user);
             return user;
-        } catch (error) {
-            throw new Error("Error updating user");
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }

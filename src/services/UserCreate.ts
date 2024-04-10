@@ -20,12 +20,12 @@ class CreateUser {
             user.email = data.email;
             user.password = data.password;
             const PermissionRepositorio = AppDataSource.getRepository(Permission);
-            const permissions = await PermissionRepositorio.findBy({ id: In([data.permissionsId]),});
+            const permissions = await PermissionRepositorio.findBy({ id: In(data.permissionsId),});
             user.permissions = permissions;
             await AppDataSource.manager.save(user);
             return user;
-        } catch (error) {
-            throw new Error("Error creating user");
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }

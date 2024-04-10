@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Copie os arquivos necessários para o contêiner
 COPY package.json ./
+COPY . .
 COPY tsconfig.json ./
 COPY src ./src
 

@@ -8,7 +8,7 @@ dotenv.config();
 
 export const AppDataSource = new DataSource({
     type: "postgres",
-    host: "localhost",
+    host: "host.docker.internal", //aqui teremos que colocar o endereço da rede interna quando for preciso
     port: 5432,
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,

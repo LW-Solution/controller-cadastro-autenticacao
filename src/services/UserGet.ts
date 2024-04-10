@@ -8,12 +8,16 @@ class UserGet {
     }
 
     async getById(id: number){
-        const UserRepositorio = AppDataSource.getRepository(User);
-        const user = await UserRepositorio.findOne({ relations: ["permissions"], where: {id: id, }});
-        if (!user) {
-            throw new Error("User not found");
+        try {
+            const UserRepositorio = AppDataSource.getRepository(User);
+            const user = await UserRepositorio.findOne({ relations: ["permissions"], where: {id: id, }});
+            if (!user) {
+                throw new Error("User not found");
+            }
+            return user;
+        } catch (error: any) {
+            throw new Error(error.message);
         }
-        return user;
     }
 }
 

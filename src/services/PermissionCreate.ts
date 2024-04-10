@@ -12,8 +12,8 @@ class CreatePermission {
             permission.name = data.name;
             await AppDataSource.manager.save(permission);
             return permission;
-        } catch (error) {
-            throw new Error("Error creating permission");
+        } catch (error: any) {
+            throw new Error(error.message);
         }
     }
 }

@@ -3,13 +3,17 @@ import { AppDataSource } from "../data-source";
 
 class UserDelete {
     async delete(id: number){
-        const UserRepositorio = AppDataSource.getRepository(User);
+        try {
+            const UserRepositorio = AppDataSource.getRepository(User);
         const user = await UserRepositorio.findOneBy({ id: id, });
         if (!user) {
             throw new Error("User not found");
         }
         await UserRepositorio.remove(user);
         return user;
+        } catch (error: any) {
+            throw new Error(error.message);
+        }
     }
 }
 

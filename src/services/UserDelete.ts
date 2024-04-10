@@ -1,7 +1,7 @@
 import { User } from "../entity/User";
 import { AppDataSource } from "../data-source";
 
-class DeleteUser {
+class UserDelete {
     async delete(id: number){
         const UserRepositorio = AppDataSource.getRepository(User);
         const user = await UserRepositorio.findOneBy({ id: id, });
@@ -13,4 +13,4 @@ class DeleteUser {
     }
 }
 
-export default new DeleteUser; 
+export default new UserDelete; 

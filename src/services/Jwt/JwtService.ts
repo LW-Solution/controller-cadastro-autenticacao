@@ -1,10 +1,12 @@
 import * as jwt from 'jsonwebtoken';
+import { Permission } from '../../entity/Permission';
 
 interface IJwtData {
     uid : number;
+    role: Permission[];
 }
  
-const sign = (data: IJwtData) => {
+const sign = (data: IJwtData): String | 'JWT_SECRET_NOT_FOUND' => {
     if (!process.env.JWT_SECRET) return 'JWT_SECRET_NOT_FOUND';
     
 

@@ -6,7 +6,7 @@ interface IJwtData {
     role: Permission[];
 }
  
-const sign = (data: IJwtData): String | 'JWT_SECRET_NOT_FOUND' => {
+const sign = (data: IJwtData): string | 'JWT_SECRET_NOT_FOUND' => {
     if (!process.env.JWT_SECRET) return 'JWT_SECRET_NOT_FOUND';
     
 

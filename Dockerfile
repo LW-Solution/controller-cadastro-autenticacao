@@ -17,4 +17,4 @@ RUN npm install
 EXPOSE 3334
 
 # Comando para iniciar o aplicativo
-CMD ["npm", "start"]
+CMD ["npm", "start:prod"]

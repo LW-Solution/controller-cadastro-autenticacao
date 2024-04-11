@@ -1,15 +1,13 @@
 import express from "express";
 import dotenv from "dotenv";
+import path from 'path';
 import { AppDataSource } from "./data-source";
 import router from "./routes";
 
-console.log("AQUI",process.env.NODE_ENV);
+const envFile = process.env.NODE_ENV == 'production' ? '.env.prod' : '.env.dev';
 
-if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.prod" });
-} else {
-  dotenv.config({ path: ".env.dev" });
-}
+// Load the .env file
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // Establish a connection to the database
 AppDataSource.initialize()

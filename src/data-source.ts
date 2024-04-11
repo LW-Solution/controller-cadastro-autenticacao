@@ -1,14 +1,13 @@
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import dotenv from "dotenv";
+import path from "path";
 import { User } from "./entity/User";
 import { Permission } from "./entity/Permission";
 
-if (process.env.NODE_ENV === "production") {
-  dotenv.config({ path: ".env.prod" });
-} else {
-  dotenv.config({ path: ".env.dev" });
-}
+const envFile = process.env.NODE_ENV == 'production' ? '.env.prod' : '.env.dev';
+
+dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 export const AppDataSource = new DataSource({
   type: "postgres",

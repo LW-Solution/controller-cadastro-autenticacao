@@ -1,8 +1,8 @@
 
 
-import { User } from "../entity/User";
-import { AppDataSource } from "../data-source";
-import { Permission } from "../entity/Permission";
+import { User } from "../../entity/User";
+import { AppDataSource } from "../../data-source";
+import { Permission } from "../../entity/Permission";
 import { In } from "typeorm";
 
 type data = {

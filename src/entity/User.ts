@@ -13,6 +13,9 @@ export class User {
     @Column({length: 225})
     password: string;
 
+    @Column()
+    email: string;
+
     @ManyToMany(() => Permission)
     @JoinTable()
     permissions: Permission[];

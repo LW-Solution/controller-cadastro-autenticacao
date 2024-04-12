@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import { AppDataSource } from "./data-source";
+import cors from "cors";
 import  router  from './routes'; 
 
 dotenv.config();
@@ -20,6 +21,8 @@ const app = express();
 
 
 app.use(express.json());
+
+app.use(cors());
 
 
 // Using the router to handle all requests

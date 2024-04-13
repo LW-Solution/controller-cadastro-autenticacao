@@ -13,13 +13,13 @@ const envFile = process.env.NODE_ENV == "production" ? ".env.prod" : ".env.dev";
 dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 
 // Establish a connection to the database
-/* AppDataSource.initialize()
+AppDataSource.initialize()
   .then(() => {
     console.log("Data Source has been initialized!");
   })
   .catch((err) => {
     console.error("Error during Data Source initialization:", err);
-  }); */
+  });
 
 // Create an express application
 const app = express();

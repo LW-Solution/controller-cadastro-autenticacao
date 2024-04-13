@@ -7,6 +7,7 @@
       "test": "echo \"Error: no test specified\" && exit 1",
       "start:dev": "cross-env NODE_ENV=development ts-node src/app.ts",
       "start:prod": "cross-env NODE_ENV=production ts-node src/app.ts",
+      "build": "tsc",
       "typeorm": "typeorm-ts-node-commonjs",
       "generate:docs": "tsoa spec-and-routes"
    },

@@ -3,9 +3,9 @@
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
 import { TsoaRoute, fetchMiddlewares, ExpressTemplateService } from '@tsoa/runtime';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { UserController } from './../controllers/ControllerUser';
+import UserController from './../controllers/ControllerUser';
 // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
-import { PermissionController } from './../controllers/ControllerPermission';
+import PermissionController from './../controllers/ControllerPermission';
 import type { Request as ExRequest, Response as ExResponse, RequestHandler, Router } from 'express';
 
 
@@ -48,7 +48,7 @@ export function RegisterRoutes(app: Router) {
     // ###########################################################################################################
         app.post('/user',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.create)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.create)),
 
             function UserController_create(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -78,7 +78,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/user',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getAll)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.getAll)),
 
             function UserController_getAll(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -107,7 +107,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/user/:id',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.getById)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.getById)),
 
             function UserController_getById(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -137,7 +137,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/user/:id',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.update)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.update)),
 
             function UserController_update(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -168,7 +168,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.delete('/user/:id',
             ...(fetchMiddlewares<RequestHandler>(UserController)),
-            ...(fetchMiddlewares<RequestHandler>(UserController.prototype.delete)),
+            ...(fetchMiddlewares<RequestHandler>(UserController.delete)),
 
             function UserController_delete(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -198,7 +198,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.post('/permission',
             ...(fetchMiddlewares<RequestHandler>(PermissionController)),
-            ...(fetchMiddlewares<RequestHandler>(PermissionController.prototype.create)),
+            ...(fetchMiddlewares<RequestHandler>(PermissionController.create)),
 
             function PermissionController_create(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -228,7 +228,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/permission',
             ...(fetchMiddlewares<RequestHandler>(PermissionController)),
-            ...(fetchMiddlewares<RequestHandler>(PermissionController.prototype.getAll)),
+            ...(fetchMiddlewares<RequestHandler>(PermissionController.getAll)),
 
             function PermissionController_getAll(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -257,7 +257,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.get('/permission/:id',
             ...(fetchMiddlewares<RequestHandler>(PermissionController)),
-            ...(fetchMiddlewares<RequestHandler>(PermissionController.prototype.getById)),
+            ...(fetchMiddlewares<RequestHandler>(PermissionController.getById)),
 
             function PermissionController_getById(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -287,7 +287,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.put('/permission/:id',
             ...(fetchMiddlewares<RequestHandler>(PermissionController)),
-            ...(fetchMiddlewares<RequestHandler>(PermissionController.prototype.update)),
+            ...(fetchMiddlewares<RequestHandler>(PermissionController.update)),
 
             function PermissionController_update(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {
@@ -318,7 +318,7 @@ export function RegisterRoutes(app: Router) {
         // WARNING: This file was auto-generated with tsoa. Please do not modify it. Re-run tsoa to re-generate this file: https://github.com/lukeautry/tsoa
         app.delete('/permission/:id',
             ...(fetchMiddlewares<RequestHandler>(PermissionController)),
-            ...(fetchMiddlewares<RequestHandler>(PermissionController.prototype.delete)),
+            ...(fetchMiddlewares<RequestHandler>(PermissionController.delete)),
 
             function PermissionController_delete(request: ExRequest, response: ExResponse, next: any) {
             const args: Record<string, TsoaRoute.ParameterSchema> = {

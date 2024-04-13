@@ -3,7 +3,8 @@ import swaggerUi from "swagger-ui-express";
 import dotenv from "dotenv";
 import path from "path";
 import { AppDataSource } from "./data-source";
-import router from "./routes";
+import cors from "cors";
+import  router  from './routes'; 
 
 
 const envFile = process.env.NODE_ENV == "production" ? ".env.prod" : ".env.dev";
@@ -24,6 +25,8 @@ dotenv.config({ path: path.resolve(process.cwd(), envFile) });
 const app = express();
 
 app.use(express.json());
+
+app.use(cors());
 
 // Using the router to handle all requests
 app.use(router);

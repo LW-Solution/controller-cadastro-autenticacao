@@ -2,17 +2,17 @@ import { Permission } from "../entity/Permission";
 import { AppDataSource } from "../data-source";
 
 class PermissionDelete {
-    async delete(id: number){
+    async delete(id: number) {
         try {
             const PermissionRepositorio = AppDataSource.getRepository(Permission);
-        const permission = await PermissionRepositorio.find({ where: { id: id, }});
-        if (!permission) {
-            throw new Error("Permission not found");
-        }
-        await PermissionRepositorio.remove(permission);
-        return permission;
-        } catch (error: any) {  
-            throw new Error(error.message);
+            const permission = await PermissionRepositorio.findOneBy({ id: id, });
+            if (!permission) {
+                throw new Error("Permission not found");
+            }
+            await AppDataSource.manager.softRemove(permission);
+            return permission;
+        } catch (error: any) {
+            throw new Error(error);
         }
     }
 }

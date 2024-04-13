@@ -9,6 +9,7 @@
       "emitDecoratorMetadata": true,
       "experimentalDecorators": true,
       "outDir": "./build",
+      "resolveJsonModule": true,
       "moduleResolution": "node",
       "noImplicitAny": true,
       "lib": [

@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, DeleteDateColumn } from "typeorm";
 import { User } from "./User";
 
 @Entity()
@@ -12,4 +12,7 @@ export class Permission {
 
     @ManyToMany(() => User, user => user.permissions)
     users: User[];
+
+    @DeleteDateColumn() 
+    deletedAt: Date; 
 }

@@ -1,12 +1,14 @@
 name: CD
 
 on:
-  push:
-    branches:
-      - develop
+  workflow_run:
+    workflows: ["CI"]
+    types:
+      - completed
 
 jobs:
   build_and_deploy:
+    needs: CI
     runs-on: ubuntu-latest
 
     steps:
@@ -36,10 +38,15 @@ jobs:
 
       - name: Merge to prod
         if: success() && github.ref == 'refs/heads/develop'
-        uses: pullreminders/merge-action@v2
-        with:
-          github_token: ${{ secrets.GHUB_TOKEN }}
-          merge_method: 'squash'
-          commit_message: 'Merge branch develop into prod'
-          commit_author: 'CI Bot <ci@example.com>'
-          destination_branch: 'prod'
+        run: |
+          git config user.name "CI Bot"
+          git config user.email "ci@example.com"
+
+          # Atualiza a branch 'prod' com as últimas alterações
+          git fetch origin prod
+          git checkout prod
+          git merge --squash develop
+          git commit -m "Merge branch develop into prod"
+
+          # Empurra as alterações para a branch 'prod'
+          git push origin prod

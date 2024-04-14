@@ -28,7 +28,7 @@ app.use(express.json());
 
 app.use(cors());
 
-// Using the router to handle all requests
+// Using the router to handle all requests - teste
 app.use(router);
 
 // Using the router to publish Swagger + TSOA documentation

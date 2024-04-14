@@ -48,8 +48,8 @@ jobs:
         env:
           GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
         run: |
-          git config user.name "CI Bot"
-          git config user.email "ci@example.com"
+          git config user.name "jonasrsribeiro"
+          git config user.email "jonas.ribeiro01@fatec.sp.gov.br"
 
           # Verificar se a branch 'prod' possui commits
           if git rev-parse --verify origin/prod >/dev/null 2>&1; then

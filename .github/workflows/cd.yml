@@ -11,13 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start job
-        # Ação vazia apenas para satisfazer o requisito de um job sem dependências!
         run: echo "Starting job"
 
   build_and_deploy:
     needs: start
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,7 +23,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: "20"
+          node-version: "14"  # Corrigido para uma versão válida do Node.js
 
       - name: Install dependencies
         run: npm install
@@ -51,10 +49,14 @@ jobs:
           git config user.name "jonasrsribeiro"
           git config user.email "jonas.ribeiro01@fatec.sp.gov.br"
 
-          # Verificar se a branch 'prod' possui commits
+          # Atualizar a branch 'prod' local
           git fetch origin prod
-          git checkout -b prod
+          git checkout origin prod
 
           # Mesclar 'develop' em 'prod'
-          git merge --no-edit --no-ff develop
+          git pull origin prod
+          git config pull.rebase false  # Configurar para usar merge
+          git merge --no-edit --no-ff develop  # Mesclar 'develop' em 'prod'
+          
+          # Fazer o push da branch 'prod' atualizada
           git push origin prod

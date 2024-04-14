@@ -52,16 +52,8 @@ jobs:
           git config user.email "jonas.ribeiro01@fatec.sp.gov.br"
 
           # Verificar se a branch 'prod' possui commits
-          if git rev-parse --verify origin/prod >/dev/null 2>&1; then
-            # Se a branch 'prod' existe, realizar a mesclagem
-            git fetch origin prod
-            git checkout prod
-          else
-            # Se a branch 'prod' não existe, criar e inicializar
-            git checkout -b prod
-            git commit --allow-empty -m "Initial commit for prod branch"
-            git push origin prod
-          fi
+          git fetch origin prod
+          git checkout -b prod
 
           # Mesclar 'develop' em 'prod'
           git merge --no-edit --no-ff develop

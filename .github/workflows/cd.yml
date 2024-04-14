@@ -7,17 +7,8 @@ on:
       - completed
 
 jobs:
-  # Job inicial sem dependências
-  start:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Start job
-        # Ação vazia apenas para satisfazer o requisito de um job sem dependências
-        run: echo "Starting job"
-
-  # Job principal para build e deploy
   build_and_deploy:
-    needs: start  # Indica que este job depende do job 'start'
+    needs: start
     runs-on: ubuntu-latest
 
     steps:
@@ -51,11 +42,17 @@ jobs:
           git config user.name "CI Bot"
           git config user.email "ci@example.com"
 
-          # Atualiza a branch 'prod' com as últimas alterações
+          # Verificar se a branch 'prod' possui commits
+          if [[ $(git rev-list --count origin/prod) -eq 0 ]]; then
+            # Se a branch 'prod' estiver vazia, crie um commit inicial
+            git checkout -b prod
+            git commit --allow-empty -m "Initial commit for prod branch"
+            git push origin prod
+          fi
+
+          # Atualizar a branch 'prod' com as últimas alterações da branch 'develop'
           git fetch origin prod
           git checkout prod
-          git merge --squash develop
+          git merge --allow-unrelated-histories --squash develop
           git commit -m "Merge branch develop into prod"
-
-          # Empurra as alterações para a branch 'prod'
           git push origin prod

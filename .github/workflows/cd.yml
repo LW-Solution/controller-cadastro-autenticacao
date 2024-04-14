@@ -7,7 +7,6 @@ on:
       - completed
 
 jobs:
-  # Job inicial sem dependências
   start:
     runs-on: ubuntu-latest
     steps:
@@ -15,8 +14,6 @@ jobs:
         # Ação vazia apenas para satisfazer o requisito de um job sem dependências
         run: echo "Starting job"
 
-  # Job principal para build e deploy
-  jobs:
   build_and_deploy:
     needs: start
     runs-on: ubuntu-latest
@@ -53,16 +50,17 @@ jobs:
           git config user.email "ci@example.com"
 
           # Verificar se a branch 'prod' possui commits
-          if [[ $(git rev-list --count origin/prod) -eq 0 ]]; then
-            # Se a branch 'prod' estiver vazia, crie um commit inicial
+          if git rev-parse --verify origin/prod >/dev/null 2>&1; then
+            # Se a branch 'prod' existe, realizar a mesclagem
+            git fetch origin prod
+            git checkout prod
+          else
+            # Se a branch 'prod' não existe, criar e inicializar
             git checkout -b prod
             git commit --allow-empty -m "Initial commit for prod branch"
             git push origin prod
           fi
 
-          # Atualizar a branch 'prod' com as últimas alterações da branch 'develop'
-          git fetch origin prod
-          git checkout prod
-          git merge --allow-unrelated-histories --squash develop
-          git commit -m "Merge branch develop into prod"
+          # Mesclar 'develop' em 'prod'
+          git merge --no-edit --no-ff develop
           git push origin prod

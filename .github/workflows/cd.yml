@@ -56,5 +56,6 @@ jobs:
           git checkout -b prod
 
           # Mesclar 'develop' em 'prod'
+          git pull origin prod
           git merge --no-edit --no-ff develop
           git push origin prod

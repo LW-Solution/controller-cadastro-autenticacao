@@ -57,5 +57,7 @@ jobs:
 
           # Mesclar 'develop' em 'prod'
           git pull origin prod
+          git config pull.rebase false
+          git push origin prod
           git merge --no-edit --no-ff develop
           git push origin prod

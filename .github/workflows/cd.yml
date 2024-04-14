@@ -7,8 +7,17 @@ on:
       - completed
 
 jobs:
+  # Job inicial sem dependências
+  start:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Start job
+        # Ação vazia apenas para satisfazer o requisito de um job sem dependências
+        run: echo "Starting job"
+
+  # Job principal para build e deploy
   build_and_deploy:
-    needs: CI
+    needs: start  # Indica que este job depende do job 'start'
     runs-on: ubuntu-latest
 
     steps:

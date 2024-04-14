@@ -51,7 +51,7 @@ jobs:
 
           # Atualizar a branch 'prod' local
           git fetch origin prod
-          git checkout prod
+          git checkout origin prod
 
           # Mesclar 'develop' em 'prod'
           git pull origin prod

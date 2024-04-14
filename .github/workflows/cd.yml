@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Start job
-        # Ação vazia apenas para satisfazer o requisito de um job sem dependências
+        # Ação vazia apenas para satisfazer o requisito de um job sem dependências!
         run: echo "Starting job"
 
   build_and_deploy:

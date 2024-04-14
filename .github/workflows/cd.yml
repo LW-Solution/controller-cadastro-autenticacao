@@ -49,5 +49,5 @@ jobs:
           git config user.name "jonasrsribeiro"
           git config user.email "jonas.ribeiro01@fatec.sp.gov.br"
           git pull
-          git checkout prod  # Alterar para a branch de produção
+          git checkout origin prod  # Alterar para a branch de produção
           git merge develop  # Faz o merge da branch develop na branch prod

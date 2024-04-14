@@ -44,7 +44,7 @@ jobs:
       - name: Merge to prod (somente quando executado na branch develop)
         if: success() && github.ref == 'refs/heads/develop'
         env:
-          GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}  # Certifique-se de ter um token com permissão para merge
+          GHUB_TOKEN: ${{ secrets.GHUB_TOKEN }}
         run: |
           git config user.name "jonasrsribeiro"
           git config user.email "jonas.ribeiro01@fatec.sp.gov.br"
@@ -52,5 +52,5 @@ jobs:
           git checkout develop
           git pull origin develop
           git checkout prod
-          git merge develop
+          git merge --allow-unrelated-histories develop  # Merge forçado ignorando históricos não relacionados
           git push origin prod  # Para enviar o merge para a branch prod no repositório remoto

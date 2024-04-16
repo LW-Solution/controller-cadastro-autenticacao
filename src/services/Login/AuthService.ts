@@ -10,9 +10,7 @@ class AuthService {
 
     //refatorar para aproveitar a função de UserGet
     const users = await AppDataSource.manager.find(User);
-    console.log(users.length)
     const user = users.find(user => user.email === email);
-    console.log(user)
 
     if (!user || user.password !== password) {
       return 'Email ou senha inválidos';

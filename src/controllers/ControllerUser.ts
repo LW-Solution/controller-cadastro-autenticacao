@@ -3,7 +3,7 @@ import UserUpdate from "../services/user/UserUpdate";
 import UserCreate from "../services/user/UserCreate";
 import UserGet from "../services/user/UserGet";
 import UserDelete from "../services/user/UserDelete";
-import AuthService from "../services/Auth/AuthService";
+import AuthService from "../services/Login/AuthService";
 
 class ControllerUser {
     async create(request: Request, response: Response) {
@@ -58,19 +58,6 @@ class ControllerUser {
             return response.status(400).json({ error: error.message });
         }
     }
-
-    async login(req: Request, res: Response) {
-        try {
-            const email = req.body.email;
-            const password = req.body.password;
-            const token = await AuthService.login(email, password);
-            if (token === 'Email ou senha inválidos') {
-                return res.status(401).json({ error: token });
-            }
-            res.status(200).json({ token });
-        } catch (error: any) {
-            res.status(401).json({ error: error.message });
-        }
-    }}
+}
 
 export default new ControllerUser();

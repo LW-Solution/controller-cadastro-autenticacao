@@ -1,60 +1,59 @@
-import { Controller, Post, Get, Put, Delete, Request, Response, Body, Path, Route } from 'tsoa';
-import { Permission } from '../entity/Permission'; // Assuming Permission entity is defined here
-import PermissionCreate from '../services/PermissionCreate';
-import PermissionGet from '../services/PermissionGet';
-import PermissionUpdate from '../services/PermissionUpdate';
-import PermissionDelete from '../services/PermissionDelete';
+import { Request, Response } from 'express';
+import  PermissionCreate  from '../services/PermissionCreate';
+import  PermissionDelete from '../services/PermissionDelete';
+import  PermissionGet  from '../services/PermissionGet';  
+import  PermissionUpdate  from '../services/PermissionUpdate';
 
-@Route('permission')
-export default class PermissionController extends Controller {
-
-  @Post('/')
-  public static async create(@Body() data: any): Promise<Permission> {
-    try {
-      const permission = await PermissionCreate.create(data);
-      return permission; // Assuming PermissionCreate returns a Permission object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+class ControllerPermission {
+    async create(request: Request, response: Response) {
+        try {
+            const data = request.body;
+            const permission = await PermissionCreate.create(data);
+            return response.status(201).json(permission);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Get('/')
-  public static async getAll(): Promise<Permission[]> {
-    try {
-      const permissions = await PermissionGet.getAll();
-      return permissions;
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async getAll(request: Request, response: Response) {
+        try {
+            const permissions = await PermissionGet.getAll();
+            return response.status(200).json(permissions);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Get('{id}')
-  public static async getById(@Path('id') id: number): Promise<Permission | undefined> {
-    try {
-      const permission = await PermissionGet.getById(id);
-      return permission;
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async getById(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const permission = await PermissionGet.getById(Number(id));
+            return response.status(200).json(permission);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Put('{id}')
-  public static async update(@Path('id') id: number, @Body() data: any): Promise<Permission> {
-    try {
-      const permission = await PermissionUpdate.update(id, data);
-      return permission; // Assuming PermissionUpdate returns a Permission object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async update(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const data = request.body;
+            const permission = await PermissionUpdate.update(Number(id), data);
+            return response.status(200).json(permission);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Delete('{id}')
-  public static async delete(@Path('id') id: number): Promise<Permission> {
-    try {
-      const permission = await PermissionDelete.delete(id);
-      return permission; // Assuming PermissionDelete returns a Permission object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async delete(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const permission = await PermissionDelete.delete(Number(id));
+            return response.status(200).json(permission);
+        } catch (error: any) {
+            return response.status(400).json({ error: error.message });
+        }
     }
-  }
 }
+
+export default new ControllerPermission();

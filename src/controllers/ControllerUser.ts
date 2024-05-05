@@ -1,65 +1,62 @@
-import { Controller, Post, Get, Put, Delete, Request, Response, Body, Path, Route } from 'tsoa';
-import { User } from '../entity/User'; // Assuming User entity is defined here
-import UserCreate from '../services/UserCreate';
-import UserGet from '../services/UserGet';
-import UserUpdate from '../services/UserUpdate';
-import UserDelete from '../services/UserDelete';
+import { Request, Response } from "express";
+import UserUpdate from "../services/UserUpdate";
+import UserCreate from "../services/UserCreate";
+import UserGet from "../services/UserGet";
+import UserDelete from "../services/UserDelete";
 
-@Route('user')
-export default class UserController extends Controller {
-
-  @Post('/')
-  public static async create(@Body() data: any): Promise<User> {
-    try {
-      // Existing logic to convert permissionsId to numbers if it's an array
-      if (data.permissionsId && Array.isArray(data.permissionsId)) {
-        data.permissionsId = data.permissionsId.map(Number);
-      }
-
-      const user = UserCreate.create(data);
-      return user; // Assuming UserCreate returns a User object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+class ControllerUser {
+    async create(request: Request, response: Response) {
+        try {
+            const data = request.body;
+            if (data.permissionsId && Array.isArray(data.permissionsId)) {
+                data.permissionsId = data.permissionsId.map(Number);
+            }
+            const user = UserCreate.create(data);
+            return response.status(201).json(user);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Get('/')
-  public static async getAll(): Promise<User[]> {
-    try {
-      const users = await UserGet.getAll();
-      return users;
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async getAll(request: Request, response: Response) {
+        try {
+            const users = await UserGet.getAll();
+            return response.status(200).json(users);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Get('{id}')
-  public static async getById(@Path('id') id: number): Promise<User | undefined> {
-    try {
-      const user = await UserGet.getById(id);
-      return user;
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async getById(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const user = await UserGet.getById(Number(id));
+            return response.status(200).json(user);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Put('{id}')
-  public static async update(@Path('id') id: number, @Body() data: any): Promise<User> {
-    try {
-      const user = await UserUpdate.update(data, id);
-      return user; // Assuming UserUpdate returns a User object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async update(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const data = request.body;
+            const user = await UserUpdate.update(data, Number(id));
+            return response.status(200).json(user);
+        } catch (error) {
+            return response.status(400).json({ error: error });
+        }
     }
-  }
 
-  @Delete('{id}')
-  public static async delete(@Path('id') id: number): Promise<User> {
-    try {
-      const user = await UserDelete.delete(id);
-      return user; // Assuming UserDelete returns a User object
-    } catch (error) {
-      throw error; // Re-throw the error for Tsoa to handle
+    async delete(request: Request, response: Response) {
+        try {
+            const { id } = request.params;
+            const user = await UserDelete.delete(Number(id));
+            return response.status(200).json(user);
+        } catch (error: any) {
+            return response.status(400).json({ error: error.message });
+        }
     }
-  }
 }
+
+export default new ControllerUser();

@@ -16,7 +16,14 @@ class ControllerLogin {
             res.status(401).json({ error: error.message });
         }
     }
-    public async verify(token: string): Promise<number | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOKEN'> {
+    public async verify(req: Request, res: Response): Promise<number | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOKEN'> {
+        
+        const token = req.headers.authorization;
+
+        if (!token) {
+            return 401;
+        }
+        
         const data = JWTService.verify(token);
         if (data === 'JWT_SECRET_NOT_FOUND' || data === 'INVALID_TOKEN') {
             return data;

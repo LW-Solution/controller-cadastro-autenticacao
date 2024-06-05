@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import  PermissionCreate  from '../services/PermissionCreate';
-import  PermissionDelete from '../services/PermissionDelete';
-import  PermissionGet  from '../services/PermissionGet';  
-import  PermissionUpdate  from '../services/PermissionUpdate';
+import  PermissionCreate  from '../services/permission/PermissionCreate';
+import  PermissionDelete from '../services/permission/PermissionDelete';
+import  PermissionGet  from '../services/permission/PermissionGet';  
+import  PermissionUpdate  from '../services/permission/PermissionUpdate';
 
 class ControllerPermission {
     async create(request: Request, response: Response) {

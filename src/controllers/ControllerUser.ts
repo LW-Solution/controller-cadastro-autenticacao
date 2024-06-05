@@ -1,8 +1,9 @@
 import { Request, Response } from "express";
-import UserUpdate from "../services/UserUpdate";
-import UserCreate from "../services/UserCreate";
-import UserGet from "../services/UserGet";
-import UserDelete from "../services/UserDelete";
+import UserUpdate from "../services/user/UserUpdate";
+import UserCreate from "../services/user/UserCreate";
+import UserGet from "../services/user/UserGet";
+import UserDelete from "../services/user/UserDelete";
+import AuthService from "../services/Login/AuthService";
 
 class ControllerUser {
     async create(request: Request, response: Response) {

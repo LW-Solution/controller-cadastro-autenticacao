@@ -1,5 +1,5 @@
-import { Permission } from "../entity/Permission";
-import { AppDataSource } from "../data-source";
+import { Permission } from "../../entity/Permission";
+import { AppDataSource } from "../../data-source";
 
 type data = {
     name: string,

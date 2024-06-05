@@ -16,11 +16,12 @@ class ControllerLogin {
             res.status(401).json({ error: error.message });
         }
     }
-    public async verify(req: Request, res: Response): Promise<number | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOKEN'> {
+    async verify(req: Request, res: Response): Promise<number | 'JWT_SECRET_NOT_FOUND' | 'INVALID_TOKEN'> {
         
         const token = req.headers.authorization;
 
         if (!token) {
+            res.status(401).json({ error: 'Token not found' });
             return 401;
         }
         

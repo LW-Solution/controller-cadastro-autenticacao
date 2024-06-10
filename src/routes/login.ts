@@ -4,6 +4,6 @@ import ControllerLogin from "../controllers/ControllerLogin";
 const router = Router();
 
 router.post("/", ControllerLogin.login);
-router.post("/verify", ControllerLogin.verify);
+router.get("/verify", ControllerLogin.verify);
 
 export default router;

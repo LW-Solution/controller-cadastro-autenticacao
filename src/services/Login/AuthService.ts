@@ -11,16 +11,16 @@ class AuthService {
     //refatorar para aproveitar a função de UserGet
     const users = await AppDataSource.manager.find(User);
     const user = users.find(user => user.email === email);
-
+    console.log(user)
     if (!user || user.password !== password) {
       return 'Email ou senha inválidos';
     }
 
-    const token = JWTService.sign({ uid: user.id, role: user.permissions});
+    const token = JWTService.sign({ uid: user.id , role: user.email});
     if (!token) {
       return 'Erro ao gerar token';
     }
-
+    console.log(token)
     return token;
   }
 }

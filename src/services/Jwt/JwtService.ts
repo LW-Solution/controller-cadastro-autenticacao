@@ -3,7 +3,7 @@ import { Permission } from '../../entity/Permission';
 
 interface IJwtData {
     uid : number;
-    role: Permission[];
+    role: string;
 }
  
 const sign = (data: IJwtData): string | 'JWT_SECRET_NOT_FOUND' => {

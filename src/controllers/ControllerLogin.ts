@@ -25,14 +25,14 @@ class ControllerLogin {
             return 401;
         }
         
-        const data = JWTService.verify(token);
+        const data = JWTService.verify(token.replace("Bearer", "").trim());
         if (data === 'JWT_SECRET_NOT_FOUND' || data === 'INVALID_TOKEN') {
             return data;
         }
 
         console.log("data: ");
         console.log(data);
-
+        res.status(200).json({ result: true });
         return data.uid;
     }
 }

@@ -1,5 +1,5 @@
-import { User } from "../entity/User";
-import { AppDataSource } from "../data-source";
+import { User } from "../../entity/User";
+import { AppDataSource } from "../../data-source";
 
 class UserDelete {
     async delete(id: number){

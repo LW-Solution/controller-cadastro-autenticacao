@@ -1,29 +1,31 @@
-
-
-import { User } from "../entity/User";
-import { AppDataSource } from "../data-source";
-import { Permission } from "../entity/Permission";
+import { User } from "../../entity/User";
+import { AppDataSource } from "../../data-source";
+import { Permission } from "../../entity/Permission";
 import { In } from "typeorm";
 
 type data = {
+    id: number,
     name: string,
     email: string,
     password: string,
-    confirmPassword: string,
     permissionsId: number[],
 }
 
-class CreateUser {
-    async create(data: data) {
+class UserUpdate {
+    async update(data: data, id: number) {
         try {
-            const user = new User();
+            const UserRepositorio = AppDataSource.getRepository(User);
+            const user = await UserRepositorio.findOneBy({ id: id, });
+            if (!user) {
+                throw new Error("User not found");
+            }
             user.user_name = data.name;
             user.email = data.email;
             user.password = data.password;
             const PermissionRepositorio = AppDataSource.getRepository(Permission);
             const permissions = await PermissionRepositorio.findBy({ id: In(data.permissionsId),});
             user.permissions = permissions;
-            await AppDataSource.manager.save(user);
+            await UserRepositorio.save(user);
             return user;
         } catch (error: any) {
             throw new Error(error.message);
@@ -31,4 +33,4 @@ class CreateUser {
     }
 }
 
-export default new CreateUser;  
+export default new UserUpdate;

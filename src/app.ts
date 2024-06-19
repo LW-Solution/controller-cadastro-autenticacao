@@ -42,3 +42,5 @@ app.use("/docs", swaggerUi.serve, async (_req: ExRequest, res: ExResponse) => {
 app.listen(process.env.PORT, () => {
   console.log(`Server is running on port ${process.env.PORT}`);
 });
+
+export default app;

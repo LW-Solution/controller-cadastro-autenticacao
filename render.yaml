@@ -1,0 +1,110 @@
+services:
+  db:
+    type: web
+    name: postgres-container
+    image: postgres
+    env:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=test_db
+    ports:
+      - 5432:5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+  pgadmin:
+    type: web
+    name: pgadmin-container
+    image: dpage/pgadmin4
+    env:
+      - PGADMIN_DEFAULT_EMAIL=doxito007@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=postgres
+    ports:
+      - 5050:80
+    restart_policy: always
+    depends_on:
+      - db
+
+  controller-cadastro-autenticacao:
+    type: web
+    name: controller-cadastro-autenticacao
+    image: jonasrsribeiro/lw-controller-cadastro-autenticacao:develop
+    ports:
+      - 3000:3000
+    restart_policy: always
+    depends_on:
+      - pgadmin
+
+  mysql:
+    type: web
+    name: mysql
+    image: mysql:8.0
+    env:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: estacoes_parametros_db
+      MYSQL_USER: username
+      MYSQL_PASSWORD: password
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  controller-gerenciamento-estacoes-metricas:
+    type: web
+    name: controller-gerenciamento-estacoes-metricas
+    image: jonasrsribeiro/lw-controller-gerenciamento-estacoes-metricas:develop
+    ports:
+      - 3001:3001
+    restart_policy: always
+    depends_on:
+      - mysql
+
+  frontend:
+    type: web
+    name: frontend
+    image: jonasrsribeiro/lw-frontend:develop
+    ports:
+      - 5000:5000
+    volumes:
+      - front-data:/app
+    env:
+      - NODE_ENV=development
+    depends_on:
+      - db
+      - mysql
+      - controller-cadastro-autenticacao
+      - controller-gerenciamento-estacoes-metricas
+
+  controller-recepcao-dados:
+    type: web
+    name: controller-recepcao-dados
+    image: jonasrsribeiro/lw-controller-recepcao-dados:develop
+    ports:
+      - 3002:3002
+    restart_policy: always
+    depends_on:
+      - db
+      - mysql
+      - controller-cadastro-autenticacao
+      - controller-gerenciamento-estacoes-metricas
+      - frontend
+
+  controller-tratamento-dados:
+    type: web
+    name: controller-tratamento-dados
+    image: jonasrsribeiro/lw-controller-tratamento-dados:develop
+    ports:
+      - 3003:3003
+    restart_policy: always
+    depends_on:
+      - db
+      - mysql
+      - controller-cadastro-autenticacao
+      - controller-gerenciamento-estacoes-metricas
+      - frontend
+      - controller-recepcao-dados
+
+volumes:
+  postgres-data:
+  mysql-data:
+  front-data:

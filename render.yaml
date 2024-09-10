@@ -40,10 +40,10 @@ services:
     name: mysql
     image: mysql:8.0
     env:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: estacoes_parametros_db
-      MYSQL_USER: username
-      MYSQL_PASSWORD: password
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=estacoes_parametros_db
+      - MYSQL_USER=username
+      - MYSQL_PASSWORD=password
     ports:
       - 3306:3306
     volumes:
@@ -108,3 +108,4 @@ volumes:
   postgres-data:
   mysql-data:
   front-data:
+
